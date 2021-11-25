@@ -19,14 +19,8 @@ module ProductsHelper
   def calculate_products_discount(products)
     return if products.nil?
 
-    client = Discount::Discount::Stub.new('localhost:50051', :this_channel_is_insecure)
     products.each do | product |
-      begin
-        discount = stub.get_discount(Discount::GetDiscountRequest.new(productID: 1)).message
-      rescue
-        discount = 0
-      end  
-      product["discount"] = (product["amount"] * product["quantity"] * discount)
+      product["discount"] = (product["amount"] * product["quantity"] * product_discount(product))
     end
     
     products
@@ -34,5 +28,15 @@ module ProductsHelper
 
   def select_gifts_products(products)
     products.select{|product| product["is_gift"] == true}
+  end
+
+  def product_discount(product)
+    client = Discount::Discount::Stub.new('localhost:50051', :this_channel_is_insecure)
+    begin
+      discount = client.get_discount(Discount::GetDiscountRequest.new(productID: product["id"])).message
+    rescue
+      discount = 0
+    end  
+    discount
   end
 end
