@@ -27,16 +27,15 @@ module OrderHelper
         "is_gift" => product_in_order["is_gift"]
       }
       total_amount += product_hash["total_amount"]
-      total_amount_with_discount += (total_amount - product_hash["discount"])
-      total_discount += product_hash["discount"]
+      total_discount += product_hash["discount"] * product_hash["total_amount"]
 
       products << product_hash
     end
 
     {
       "total_amount" => total_amount,
-      "total_amount_with_discount" => total_amount_with_discount,
+      "total_amount_with_discount" => total_amount - total_discount,
       "total_discount" => total_discount
-    }.merge({"products": products})
+    }.merge({"products" => products})
   end
 end
