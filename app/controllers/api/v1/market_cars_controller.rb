@@ -7,7 +7,7 @@
 
 		def checkpoint 
 			
-			if params["products"].nil?
+			if params["products"].blank?
 				render json: {status: 'Car Without Products', message: "Não é possível fazer checkout com carrinho vazio."}, status: :bad_request
 			else 
 				products = load_products_by_ids(params["products"]) 
