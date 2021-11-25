@@ -159,6 +159,7 @@ GEM
     thread_safe (0.3.6)
     thwait (0.2.0)
       e2mmap
+    timecop (0.9.4)
     tzinfo (1.2.9)
       thread_safe (~> 0.1)
     websocket-driver (0.7.5)
@@ -181,6 +182,7 @@ DEPENDENCIES
   rails (~> 5.2)
   rspec-rails
   spring
+  timecop
   tzinfo-data
 
 RUBY VERSION
